@@ -9,8 +9,8 @@ import java.util.Date;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.pontedegeracoes.entitys.Meeting;
-import com.pontedegeracoes.entitys.User;
+import com.pontedegeracoes.api.entitys.Meeting;
+import com.pontedegeracoes.api.entitys.User;
 
 @SpringBootTest
 public class MeetingEntityTest {
