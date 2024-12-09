@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.pontedegeracoes.entitys.User;
+import com.pontedegeracoes.api.entitys.User;
 
 @SpringBootTest
 public class UserEntityTest {
