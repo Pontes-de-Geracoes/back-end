@@ -20,8 +20,7 @@ public class UserEntityTest {
         double latitude = 0.3;
         double longitude = 0.3;
         List<String> necessities = List.of("mobilidade", "conversa");
-        List<String> hobbies = List.of("croche", "palavra-cruzada");
-        
+    
         String expectedString = "{\n" +
             "name='" + name + "'\n" +
             "age='" + age + "'\n" +
@@ -30,10 +29,9 @@ public class UserEntityTest {
             "latitude='" + latitude + "'\n" +
             "longitude='" + longitude + "'\n" +
             "necessities='" + necessities + "'\n" +
-            "hobbies='" + hobbies + "'\n" +
             "}";
 
-        User newUser = new User(name, age, userType, meetingPreference, latitude, longitude, necessities, hobbies);
+        User newUser = new User(name, age, userType, meetingPreference, latitude, longitude, necessities);
         String actualString = newUser.toString();
 
         //verificando se os atributos foram instanciados de forma correta

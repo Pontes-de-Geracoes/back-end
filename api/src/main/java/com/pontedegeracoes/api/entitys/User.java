@@ -41,15 +41,11 @@ public class User {
     @Column(nullable = false)
     private List<String> necessities;
 
-    @ElementCollection
-    @Column(nullable = false)
-    private List<String> hobbies;
-
     //construtores
     protected User() {}
 
     public User(String name, int age, String userType, String meetingPreference,
-                double latitude, double longitude, List<String> necessities, List<String> hobbies){
+                double latitude, double longitude, List<String> necessities){
         this.name = name;
         this.age = age;
         this.userType = userType;
@@ -57,7 +53,6 @@ public class User {
         this.latitude = latitude;
         this.longitude = longitude;
         this.necessities = necessities;
-        this.hobbies = hobbies;
     }
 
     //getters e setters
@@ -84,7 +79,7 @@ public class User {
     public String getUserType() {
         return this.userType;
     }
-
+ 
     public void setUserType(String userType) {
         this.userType = userType;
     }
@@ -121,13 +116,6 @@ public class User {
         this.necessities = necessities;
     }
 
-    public List<String> getHobbies() {
-        return this.hobbies;
-    }
-
-    public void setHobbies(List<String> hobbies) {
-        this.hobbies = hobbies;
-    }
 
     @Override
     public String toString() {
@@ -139,7 +127,6 @@ public class User {
             "latitude='" + getLatitude() + "'\n" +
             "longitude='" + getLongitude() + "'\n" +
             "necessities='" + getNecessities() + "'\n" +
-            "hobbies='" + getHobbies() + "'\n" +
             "}";
     }
 

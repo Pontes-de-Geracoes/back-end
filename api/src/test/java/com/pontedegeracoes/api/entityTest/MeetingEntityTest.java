@@ -21,8 +21,8 @@ public class MeetingEntityTest {
         boolean inPerson = true;
         String description = "Encontro para discutir sobre crochê e amigurumi";
 
-        User person1 = new User("Laura", 68, "idoso", "presencial", 0.3, 0.3, List.of("caminhar", "tecnologia") , List.of("croche", "leitura"));
-        User person2 = new User("Vítor", 20, "voluntario", "presencial", 0.3, 0.3, List.of("esporte", "tecnologia") , List.of("filmes", "leitura"));
+        User person1 = new User("Laura", 68, "idoso", "presencial", 0.3, 0.3, List.of("caminhar", "tecnologia"));
+        User person2 = new User("Vítor", 20, "voluntario", "presencial", 0.3, 0.3, List.of("esporte", "tecnologia"));
 
         List<User> participants = List.of(person1, person2);
         Date date = null;
