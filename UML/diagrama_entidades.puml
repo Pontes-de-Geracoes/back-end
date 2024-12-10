@@ -9,7 +9,12 @@
         latitude
         longitude
         necessities
-        hobbies
+    }
+
+    entity Necessity{
+        
+        necessityId--
+        name
     }
 
     entity Meeting {
@@ -24,5 +29,6 @@
     }
 
     Meeting --> User
+    Necessity --> User
 
 @enduml

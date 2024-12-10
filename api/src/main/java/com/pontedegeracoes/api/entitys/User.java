@@ -2,13 +2,14 @@ package com.pontedegeracoes.api.entitys;
 
 import java.util.List;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Users")
@@ -19,26 +20,29 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userId;
 
-    @Column(nullable = false, length = 60)
+    @NotBlank
+    @Size(max = 60)
     private String name;
 
-    @Column(nullable = false)
+    @NotBlank
     private int age;
 
-    @Column(nullable = false, length = 60)
+    @NotBlank
+    @Size(max = 60)
     private String userType;
 
-    @Column(nullable = false, length = 60)
+    @NotBlank
+    @Size(max = 60)
     private String meetingPreference;
 
-    @Column(nullable = false)
+    @NotBlank
     private double latitude;
 
-    @Column(nullable = false)
+    @NotBlank
     private double longitude;
 
     @ElementCollection
-    @Column(nullable = false)
+    @NotBlank
     private List<String> necessities;
 
     //construtores
