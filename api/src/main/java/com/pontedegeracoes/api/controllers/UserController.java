@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,8 +35,8 @@ public class UserController {
 
     @GetMapping("/start-database")
     public String addInitialUsers(){
-        userRepository.save(new User("laura", 68, "idoso", "presencial", 0.3, 0.3, List.of("caminhar", "tecnologia") , List.of("croche", "leitura")));
-        userRepository.save(new User("vitor", 20, "voluntario", "presencial", 0.3, 0.3, List.of("esporte", "tecnologia") , List.of("filmes", "leitura")));
+        userRepository.save(new User("laura", 68, "idoso", "presencial", 0.3, 0.3, List.of("caminhar", "tecnologia")));
+        userRepository.save(new User("vitor", 20, "voluntario", "presencial", 0.3, 0.3, List.of("esporte", "tecnologia")));
         return "Data base successfully started!";
     }
 
