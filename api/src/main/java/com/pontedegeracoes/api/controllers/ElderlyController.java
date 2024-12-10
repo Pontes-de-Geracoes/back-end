@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pontedegeracoes.api.entitys.User;
 import com.pontedegeracoes.api.repositorys.UserRepository;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("elderly")
 public class ElderlyController {
@@ -36,12 +38,12 @@ public class ElderlyController {
     }
 
     @GetMapping("/")
-    public List<User> getElderlyByName(@RequestParam String name){
+    public List<User> getElderlyByName(@Valid @RequestParam String name){
         return userRepository.findByNameAndUserType(name, "idoso");
     }
 
     @PostMapping()
-    public ResponseEntity<User> postNewElderly(@RequestBody User newUser){
+    public ResponseEntity<User> postNewElderly(@Valid @RequestBody User newUser){
         User savedUser = userRepository.save(newUser);
         return new ResponseEntity<User>(savedUser,HttpStatus.CREATED);
     }

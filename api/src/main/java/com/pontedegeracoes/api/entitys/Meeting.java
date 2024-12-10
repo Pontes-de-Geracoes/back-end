@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Meetings")
@@ -20,20 +21,21 @@ public class Meeting {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long meetingId;
 
-    @Column(nullable = false)
+    @NotBlank
     @DateTimeFormat(pattern = "dd/mm/yyyy hh:mm:ss")
     private Date date;
-    @Column(nullable = false)
+    @NotBlank
     private double latitude;
-    @Column(nullable = false)
+    @NotBlank
     private double longitude;
-    @Column(nullable = false)
+    @NotBlank
     private boolean inPerson;
-    @Column(nullable = false, length = 250)
+    @NotBlank
+    @Size(max = 250)
     private String description;
 
     @ElementCollection
-    @Column(nullable = false)
+    @NotBlank
     private List<User> participants; 
 
     protected Meeting(){}

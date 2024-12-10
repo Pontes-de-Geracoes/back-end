@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pontedegeracoes.api.entitys.User;
 import com.pontedegeracoes.api.repositorys.UserRepository;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("volunteer")
 public class VolunteerController {
@@ -35,13 +37,13 @@ public class VolunteerController {
         return "Data base successfully started! (Volunteer)";
     }
 
-    @GetMapping("/{name}")
-    public List<User> getVolunteerByName(@RequestParam String name){
+    @GetMapping("/")
+    public List<User> getVolunteerByName(@Valid @RequestParam String name){
         return userRepository.findByNameAndUserType(name, "voluntario");
     }
 
     @PostMapping()
-    public ResponseEntity<User> postNewVolunteer(@RequestBody User newUser){
+    public ResponseEntity<User> postNewVolunteer(@Valid @RequestBody User newUser){
         User savedUser = userRepository.save(newUser);
         return new ResponseEntity<User>(savedUser,HttpStatus.CREATED);
     }
