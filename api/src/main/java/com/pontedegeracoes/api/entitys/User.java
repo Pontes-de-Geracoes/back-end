@@ -32,14 +32,22 @@ public class User {
     private String userType;
 
     @NotBlank
+    @Size(max = 254)
+    private String email;
+
+    @NotBlank
+    @Size(max = 30)
+    private String password;
+
+    @NotBlank
     @Size(max = 60)
     private String meetingPreference;
 
-    @NotBlank
-    private double latitude;
+    @Size(max = 60)
+    private String city;
 
-    @NotBlank
-    private double longitude;
+    @Size(max = 60)
+    private String stateInitials;
 
     @ElementCollection
     @NotBlank
@@ -47,15 +55,17 @@ public class User {
 
     //construtores
     protected User() {}
-
-    public User(String name, int age, String userType, String meetingPreference,
-                double latitude, double longitude, List<String> necessities){
+    //TODO: deixar cidade / estado opcional
+    public User(String name, int age, String userType, String email, String password,
+                String meetingPreference, String city, String stateInitials, List<String> necessities){
         this.name = name;
         this.age = age;
         this.userType = userType;
+        this.email = email;
+        this.password = password;
         this.meetingPreference = meetingPreference;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.city = city;
+        this.stateInitials = stateInitials;
         this.necessities = necessities;
     }
 
@@ -88,6 +98,22 @@ public class User {
         this.userType = userType;
     }
 
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getMeetingPreference() {
         return this.meetingPreference;
     }
@@ -96,20 +122,20 @@ public class User {
         this.meetingPreference = meetingPreference;
     }
 
-    public double getLatitude() {
-        return this.latitude;
+    public String getCity() {
+        return this.city;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public double getLongitude() {
-        return this.longitude;
+    public String getStateInitials() {
+        return this.stateInitials;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setStateInitials(String stateInitials) {
+        this.stateInitials = stateInitials;
     }
 
     public List<String> getNecessities() {
@@ -127,9 +153,11 @@ public class User {
             "name='" + getName() + "'\n" +
             "age='" + getAge() + "'\n" +
             "userType='" + getUserType() + "'\n" +
+            "email='" + getEmail() + "'\n" +
+            "password='" + getPassword() + "'\n" +
             "meetingPreference='" + getMeetingPreference() + "'\n" +
-            "latitude='" + getLatitude() + "'\n" +
-            "longitude='" + getLongitude() + "'\n" +
+            "city='" + getCity() + "'\n" +
+            "stateInitials='" + getStateInitials() + "'\n" +
             "necessities='" + getNecessities() + "'\n" +
             "}";
     }

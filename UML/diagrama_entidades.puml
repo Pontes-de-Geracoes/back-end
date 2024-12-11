@@ -1,31 +1,34 @@
 @startuml
     entity User {
-    
-        userId--
-        name
-        age
-        userType
-        meetingPreference
-        latitude
-        longitude
-        necessities
+        * userId
+        --
+        * name
+        * age
+        * userType
+        * email
+        * password
+        * meetingPreference
+        city
+        stateInitials
+        * necessities
     }
 
     entity Necessity{
-        
-        necessityId--
-        name
+        * necessityId 
+        --
+        description
+        * name
     }
 
     entity Meeting {
-        
-        meetingId--
-        date
-        longitude
-        latitude
-        inPerson
+        * meetingId
+        --
+        * date
+        city
+        stateInitials
+        * inPerson
         description
-        participants
+        * participants
     }
 
     Meeting --> User
