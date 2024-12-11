@@ -20,9 +20,8 @@ public class MeetingEntityTest {
         double longitude = 0.3;
         boolean inPerson = true;
         String description = "Encontro para discutir sobre crochê e amigurumi";
-
-        User person1 = new User("Laura", 68, "idoso", "presencial", 0.3, 0.3, List.of("caminhar", "tecnologia"));
-        User person2 = new User("Vítor", 20, "voluntario", "presencial", 0.3, 0.3, List.of("esporte", "tecnologia"));
+        User person1 = new User("theo", 21, "voluntario", "theo@theo.com", "theozin123", "remoto", "araxa", "mg", List.of("conversa", "tecnologia"));
+        User person2 = new User("laura", 98, "idoso", "laura@laura.com", "laurinha123", "presencial", "sao jose do rio preto", "sp", List.of("esporte", "tecnologia"));
 
         List<User> participants = List.of(person1, person2);
         Date date = null;

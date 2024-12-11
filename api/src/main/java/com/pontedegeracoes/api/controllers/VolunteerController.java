@@ -32,8 +32,8 @@ public class VolunteerController {
 
     @GetMapping("/start")
     public String addInitialVolunteers(){
-        userRepository.save(new User("theo", 21, "voluntario", "remoto", 1.7, 0.5, List.of("conversa", "tecnologia")));
-        userRepository.save(new User("vitor", 20, "voluntario", "presencial", 0.3, 0.3, List.of("esporte", "tecnologia")));
+        userRepository.save(new User("theo", 21, "voluntario", "theo@theo.com", "theozin123", "remoto", "araxa", "mg", List.of("conversa", "tecnologia")));
+        userRepository.save(new User("vitor", 20, "voluntario", "vitor@vitor.com", "vitor123", "presencial", "sao paulo", "sp", List.of("esporte", "tecnologia")));
         return "Data base successfully started! (Volunteer)";
     }
 

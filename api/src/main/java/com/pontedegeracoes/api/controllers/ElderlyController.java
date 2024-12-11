@@ -32,8 +32,8 @@ public class ElderlyController {
 
     @GetMapping("/start")
     public String addInitialElderly(){
-        userRepository.save(new User("laura", 98, "idoso", "remoto", 7.1, 3.5, List.of("caminhada", "tecnologia")));
-        userRepository.save(new User("pedro", 80, "idoso", "presencial", 0.3, 0.3, List.of("esporte", "conversa")));
+        userRepository.save(new User("pedro", 80, "idoso", "pedro@pedro.com", "1234", "remoto", "araxa", "mg", List.of("conversa", "tecnologia")));
+        userRepository.save(new User("laura", 98, "idoso", "laura@laura.com", "laurinha123", "presencial", "sao jose do rio preto", "sp", List.of("esporte", "tecnologia")));
         return "Data base successfully started (Elederly)!";
     }
 
