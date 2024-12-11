@@ -24,10 +24,10 @@ public class Meeting {
     @NotBlank
     @DateTimeFormat(pattern = "dd/mm/yyyy hh:mm:ss")
     private Date date;
-    @NotBlank
-    private double latitude;
-    @NotBlank
-    private double longitude;
+    @Size(max = 60)
+    private String city;
+    @Size(max = 60)
+    private String stateInitials;
     @NotBlank
     private boolean inPerson;
     @NotBlank
@@ -40,12 +40,12 @@ public class Meeting {
 
     protected Meeting(){}
 
-    public Meeting(Date date, double latitude, 
-                   double longitude, boolean inPerson,
+    public Meeting(Date date, String city, 
+                   String stateInitials, boolean inPerson,
                    String description, List<User> participants){
         this.date = date;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.city = city;
+        this.stateInitials = stateInitials;
         this.inPerson = inPerson;
         this.description = description;
         this.participants = participants;
@@ -64,20 +64,20 @@ public class Meeting {
         this.date = date;
     }
 
-    public double getLatitude() {
-        return this.latitude;
+    public String getCity() {
+        return this.city;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public double getLongitude() {
-        return this.longitude;
+    public String getStateInitials() {
+        return this.stateInitials;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setStateInitials(String stateInitials) {
+        this.stateInitials = stateInitials;
     }
 
     public boolean isInPerson() {
@@ -112,8 +112,8 @@ public class Meeting {
     public String toString() {
         return "{\n" +
             "date='" + getDate() + "'\n" +
-            "latitude='" + getLatitude() + "'\n" +
-            "longitude='" + getLongitude() + "'\n" +
+            "city='" + getCity() + "'\n" +
+            "stateInitials='" + getStateInitials() + "'\n" +
             "inPerson='" + isInPerson() + "'\n" +
             "description='" + getDescription() + "'\n" +
             "participants='" + getParticipants() + "'\n" +

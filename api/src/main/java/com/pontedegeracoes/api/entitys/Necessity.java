@@ -19,10 +19,14 @@ public class Necessity {
     @Size(max = 60)
     private String name;
 
+    @Size(max = 300)
+    private String description;
+
     protected Necessity(){}
 
-    public Necessity(String name){
+    public Necessity(String name, String description){
         this.name = name;
+        this.description = description;
     }
 
     public long getNecessityId() {
@@ -37,10 +41,19 @@ public class Necessity {
         this.name = name;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
-        return "{" +
-            "name='" + getName() + "'" +
+        return "{\n" +
+            "name='" + getName() + "'\n" +
+            "description='" + getDescription() + "'\n" +
             "}";
     }
 
