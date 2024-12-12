@@ -56,6 +56,14 @@ public class VolunteerController {
 
     @PostMapping()
     public ResponseEntity<User> postNewVolunteer(@Valid @RequestBody User newUser){
+        //analisa as necessidades escolhidas pelo usuario e verifica se
+        //elas existem
+        boolean validNecessities = newUser.getNecessities().stream()
+        .allMatch(necessity -> necessityRepository.existsByName(necessity.getName()));
+
+        if(!validNecessities){
+            return ResponseEntity.badRequest().build();
+        }
         User savedUser = userRepository.save(newUser);
         return new ResponseEntity<User>(savedUser,HttpStatus.CREATED);
     }

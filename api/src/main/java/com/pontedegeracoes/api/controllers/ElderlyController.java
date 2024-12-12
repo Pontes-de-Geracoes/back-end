@@ -3,8 +3,6 @@ package com.pontedegeracoes.api.controllers;
 import java.util.HashSet;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +28,6 @@ public class ElderlyController {
     UserRepository userRepository;
     @Autowired
     NecessityRepository necessityRepository;
-
-    Logger logger = LoggerFactory.getLogger(ElderlyController.class);
 
     public ElderlyController(){}
 
@@ -64,8 +60,6 @@ public class ElderlyController {
         //elas existem
         boolean validNecessities = newUser.getNecessities().stream()
         .allMatch(necessity -> necessityRepository.existsByName(necessity.getName()));
-
-        logger.debug("\n\n\n\n\n\nNecessidades sao validas: "+ validNecessities);
 
         if(!validNecessities){
             return ResponseEntity.badRequest().build();
