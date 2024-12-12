@@ -20,7 +20,9 @@ public class Meeting {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long meetingId;
-
+    //TODO: adicionar campo statusEncontro (negado, pendente, confirmado)
+    //TODO: adicionar campo mensagem
+    //TODO: retirar campo cidade e estado
     @NotBlank
     @DateTimeFormat(pattern = "dd/mm/yyyy hh:mm:ss")
     private Date date;
