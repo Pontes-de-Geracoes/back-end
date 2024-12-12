@@ -1,15 +1,15 @@
 package com.pontedegeracoes.api.entitys;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -36,15 +36,15 @@ public class Meeting {
     @Size(max = 250)
     private String description;
 
-    @ElementCollection
     @NotBlank
-    private List<User> participants; 
+    @ManyToMany(mappedBy = "meetings")
+    private Set<User> participants; 
 
     protected Meeting(){}
 
     public Meeting(Date date, String city, 
                    String stateInitials, boolean inPerson,
-                   String description, List<User> participants){
+                   String description, Set<User> participants){
         this.date = date;
         this.city = city;
         this.stateInitials = stateInitials;
@@ -52,7 +52,6 @@ public class Meeting {
         this.description = description;
         this.participants = participants;
     }
-
 
     public long getMeetingId() {
         return this.meetingId;
@@ -102,11 +101,11 @@ public class Meeting {
         this.description = description;
     }
 
-    public List<User> getParticipants() {
+    public Set<User> getParticipants() {
         return this.participants;
     }
 
-    public void setParticipants(List<User> participants) {
+    public void setParticipants(Set<User> participants) {
         this.participants = participants;
     }
 

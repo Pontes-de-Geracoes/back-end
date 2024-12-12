@@ -18,7 +18,7 @@ public class NecessityController {
 
     public NecessityController(){}
 
-    @GetMapping("/list")
+    @GetMapping("/list") 
     public List<Necessity> getNecessity(){
         return necessityRepository.findAll();
     }

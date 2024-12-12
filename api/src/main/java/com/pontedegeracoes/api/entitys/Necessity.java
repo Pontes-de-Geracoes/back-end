@@ -1,9 +1,16 @@
 package com.pontedegeracoes.api.entitys;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -22,6 +29,10 @@ public class Necessity {
     @Size(max = 300)
     private String description;
 
+    @ManyToMany(mappedBy = "necessities")
+    @JsonIgnore
+    private Set<User> users = new HashSet<>();
+    
     protected Necessity(){}
 
     public Necessity(String name, String description){
@@ -48,6 +59,15 @@ public class Necessity {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Set<User> getUsers() {
+        return this.users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
 
     @Override
     public String toString() {

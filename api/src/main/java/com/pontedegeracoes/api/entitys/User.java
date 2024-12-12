@@ -1,12 +1,18 @@
 package com.pontedegeracoes.api.entitys;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import jakarta.persistence.ElementCollection;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -49,15 +55,32 @@ public class User {
     @Size(max = 60)
     private String stateInitials;
 
-    @ElementCollection
+    /*@ElementCollection
     @NotBlank
-    private List<String> necessities;
+    private List<String> necessities;*/
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "meetings_participants",
+        joinColumns = @JoinColumn(name = "participants_user_id"),
+        inverseJoinColumns = @JoinColumn(name = "meeting_meeting_id")
+    )
+    private Set<Meeting> meetings;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "user_necessities",
+        joinColumns = @JoinColumn(name = "user_user_id"),
+        inverseJoinColumns = @JoinColumn(name = "necessities")
+    )
+    private Set<Necessity> necessities = new HashSet<>();
+
 
     //construtores
     protected User() {}
     //TODO: deixar cidade / estado opcional
     public User(String name, int age, String userType, String email, String password,
-                String meetingPreference, String city, String stateInitials, List<String> necessities){
+                String meetingPreference, String city, String stateInitials, Set<Necessity> necessities){
         this.name = name;
         this.age = age;
         this.userType = userType;
@@ -138,12 +161,20 @@ public class User {
         this.stateInitials = stateInitials;
     }
 
-    public List<String> getNecessities() {
+    public Set<Necessity> getNecessities() {
         return this.necessities;
     }
 
-    public void setNecessities(List<String> necessities) {
+    public void setNecessities(Set<Necessity> necessities) {
         this.necessities = necessities;
+    }
+
+    public Set<Meeting> getMeetings() {
+        return this.meetings;
+    }
+
+    public void setMeetings(Set<Meeting> meetings) {
+        this.meetings = meetings;
     }
 
 
