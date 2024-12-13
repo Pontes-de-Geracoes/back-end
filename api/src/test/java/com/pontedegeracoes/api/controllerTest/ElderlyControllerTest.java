@@ -14,6 +14,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @SpringBootTest
@@ -23,6 +24,17 @@ public class ElderlyControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    /*@Autowired
+    private UserRepository userRepository;
+
+    @BeforeAll
+    public void start(){
+        userRepository.deleteAll();
+        userRepository.save(new User("pedro", 80, "idoso", "pedro@pedro.com", "1234", "remoto", "araxa", "mg", List.of("conversa", "tecnologia")));
+        userRepository.save(new User("laura", 98, "idoso", "laura@laura.com", "laurinha123", "presencial", "sao jose do rio preto", "sp", List.of("esporte", "tecnologia")));
+    }*/
+
+    //TODO:adicionar registros no construtor
     @Test
     void testGetElderly() throws Exception{
         this.mockMvc.perform(get("/elderly/list"))

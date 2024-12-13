@@ -2,11 +2,12 @@ package com.pontedegeracoes.api.entityTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.pontedegeracoes.api.entitys.Necessity;
 import com.pontedegeracoes.api.entitys.User;
 
 @SpringBootTest
@@ -21,7 +22,8 @@ public class UserEntityTest {
         String meetingPreference = "remoto";
         String city = "sao paulo";
         String state = "sp";
-        List<String> necessities = List.of("mobilidade", "conversa");
+        Necessity necessity1 = new Necessity("tecnologia", "Ajuda com mensagens e internet");
+        Set<Necessity> necessities = Set.of(necessity1);
     
         String expectedString = "{\n" +
             "name='" + name + "'\n" +
