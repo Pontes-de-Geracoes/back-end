@@ -3,9 +3,9 @@ package com.pontedegeracoes.api.entitys;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.hibernate.annotations.Where;
-
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -24,9 +24,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-/* TODO: after add constraint to database */
 @Entity
 @Table(name = "Users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
 
     // o id do usuario sera gerado automaticamente

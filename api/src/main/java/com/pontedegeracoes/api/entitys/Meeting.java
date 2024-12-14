@@ -2,6 +2,8 @@ package com.pontedegeracoes.api.entitys;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -44,10 +46,12 @@ public class Meeting {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id", nullable = false)
+    @JsonIdentityReference(alwaysAsId = true)
     private User sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipient_id", nullable = false)
+    @JsonIdentityReference(alwaysAsId = true)
     private User recipient;
 
     protected Meeting() {
