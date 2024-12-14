@@ -1,9 +1,6 @@
 package com.pontedegeracoes.api.entitys;
 
 import java.util.Date;
-import java.util.Set;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -37,16 +33,13 @@ public class Meeting {
     @Pattern(regexp = "in person|remote|hybrid", message = "O tipo de encontro deve ser  'in person', 'remote', or 'hybrid'")
     private String type;
 
-    /* Checar esse papo de como a data será enviada pelo front-end */
-    @NotBlank
-    @DateTimeFormat(pattern = "dd/mm/yyyy hh:mm:ss")
     private Date date;
 
     @NotBlank
     private String message;
 
     @NotBlank(message = "O status é obrigatório.")
-    @Pattern(regexp = "in person|remote|hybrid", message = "O status deve ser 'in person', 'remote', or 'hybrid'")
+    @Pattern(regexp = "pending|canceled|confirm", message = "O status deve ser 'pending', 'canceled', or 'confirm'")
     private String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -71,6 +64,7 @@ public class Meeting {
         this.status = status;
         this.sender = sender;
         this.recipient = recipient;
+
     }
 
     public String getName() {

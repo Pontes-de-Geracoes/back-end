@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -69,21 +71,29 @@ public class User {
     @JoinTable(name = "user_necessity", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "necessity_id"))
     private Set<Necessity> necessities = new HashSet<>();
 
-    /*
-     * @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval =
-     * true)
-     * private Set<Meeting> sentMeetings = new HashSet<>();
-     * 
-     * @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL, orphanRemoval =
-     * true)
-     * private Set<Meeting> receivedMeetings = new HashSet<>();
-     */
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Meeting> sentMeetings = new HashSet<>();
 
-    // Add single meetings field
-    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "sender_id")
-    // Filter meetings by sender or recipient in the service or repository layer
-    private Set<Meeting> meetings = new HashSet<>();
+    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Meeting> receivedMeetings = new HashSet<>();
+
+    public Set<Meeting> getSentMeetings() {
+        return sentMeetings;
+    }
+
+    public void setSentMeetings(Set<Meeting> sentMeetings) {
+        this.sentMeetings = sentMeetings;
+    }
+
+    public Set<Meeting> getReceivedMeetings() {
+        return receivedMeetings;
+    }
+
+    public void setReceivedMeetings(Set<Meeting> receivedMeetings) {
+        this.receivedMeetings = receivedMeetings;
+    }
 
     // construtores
     public User() {
@@ -190,71 +200,11 @@ public class User {
         necessity.getUsers().remove(this);
     }
 
-    /*
-     * // Add getters and setters for the new fields
-     * public Set<Meeting> getSentMeetings() {
-     * return sentMeetings;
-     * }
-     * 
-     * public Set<Meeting> getReceivedMeetings() {
-     * return receivedMeetings;
-     * }
-     */
-
-    // Replace multiple getters with single getter
     public Set<Meeting> getMeetings() {
-        return meetings;
-    }
-
-    /*
-     * // Helper methods to manage relationships
-     * public void addSentMeeting(Meeting meeting) {
-     * sentMeetings.add(meeting);
-     * meeting.setSender(this);
-     * }
-     * 
-     * public void addReceivedMeeting(Meeting meeting) {
-     * receivedMeetings.add(meeting);
-     * meeting.setRecipient(this);
-     * }
-     * 
-     * public void removeSentMeeting(Meeting meeting) {
-     * sentMeetings.remove(meeting);
-     * meeting.setSender(null);
-     * }
-     * 
-     * public void removeReceivedMeeting(Meeting meeting) {
-     * receivedMeetings.remove(meeting);
-     * meeting.setRecipient(null);
-     * }
-     * 
-     * // Add after existing meeting methods
-     * public Set<Meeting> getAllMeetings() {
-     * Set<Meeting> allMeetings = new HashSet<>();
-     * allMeetings.addAll(sentMeetings);
-     * allMeetings.addAll(receivedMeetings);
-     * return allMeetings;
-     * }
-     */
-
-    // Replace multiple add methods with single add
-    public void addMeeting(Meeting meeting) {
-        meetings.add(meeting);
-        if (meeting.getSender() == this) {
-            meeting.setSender(this);
-        } else if (meeting.getRecipient() == this) {
-            meeting.setRecipient(this);
-        }
-    }
-
-    // Replace multiple remove methods with single remove
-    public void removeMeeting(Meeting meeting) {
-        meetings.remove(meeting);
-        if (meeting.getSender() == this) {
-            meeting.setSender(null);
-        } else if (meeting.getRecipient() == this) {
-            meeting.setRecipient(null);
-        }
+        Set<Meeting> allMeetings = new HashSet<>();
+        allMeetings.addAll(sentMeetings);
+        allMeetings.addAll(receivedMeetings);
+        return allMeetings;
     }
 
     @Override
