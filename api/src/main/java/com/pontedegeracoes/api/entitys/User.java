@@ -56,6 +56,7 @@ public class User {
     private String email;
 
     @NotBlank(message = "A Senha é obrigatória")
+    @JsonIgnore
     private String password;
 
     @NotBlank(message = "A Preferência de reunião é obrigatória")

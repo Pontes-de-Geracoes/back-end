@@ -1,4 +1,4 @@
-package com.pontedegeracoes.api.security;
+package com.pontedegeracoes.api.services;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
