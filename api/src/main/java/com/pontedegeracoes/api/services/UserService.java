@@ -1,7 +1,6 @@
 package com.pontedegeracoes.api.services;
 
 import com.pontedegeracoes.api.dtos.user.UserCreateDTO;
-import com.pontedegeracoes.api.dtos.user.UserDTO;
 import com.pontedegeracoes.api.dtos.user.UserUpdateDTO;
 import com.pontedegeracoes.api.entitys.Necessity;
 import com.pontedegeracoes.api.entitys.User;

@@ -1,23 +1,15 @@
 package com.pontedegeracoes.api.controllers;
 
 import com.pontedegeracoes.api.dtos.user.UserDTO;
-import com.pontedegeracoes.api.entitys.Necessity;
 import com.pontedegeracoes.api.entitys.User;
 import com.pontedegeracoes.api.mappers.UserMapper;
-import com.pontedegeracoes.api.repositories.NecessityRepository;
 import com.pontedegeracoes.api.repositories.UserRepository;
-
-import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.Optional;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/users")
