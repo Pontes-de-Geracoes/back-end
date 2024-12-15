@@ -53,20 +53,20 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
 
         private void seedDatabase() {
                 // Create necessities
-                Necessity n1 = new Necessity("Caminhar");
-                Necessity n2 = new Necessity("Cantar");
-                Necessity n3 = new Necessity("Dançar");
-                Necessity n4 = new Necessity("Tecnologia");
-                Necessity n5 = new Necessity("Leitura");
-                Necessity n6 = new Necessity("Esportes");
-                Necessity n7 = new Necessity("Música");
-                Necessity n8 = new Necessity("Arte");
-                Necessity n9 = new Necessity("Meal preparation");
-                Necessity n10 = new Necessity("Conversation");
-                Necessity n11 = new Necessity("Grocery shopping");
-                Necessity n12 = new Necessity("House cleaning");
-                Necessity n13 = new Necessity("Transportation");
-                Necessity n14 = new Necessity("Medication pickup");
+                Necessity n1 = new Necessity("Caminhar", "Walking in the park or around the neighborhood");
+                Necessity n2 = new Necessity("Cantar", "Singing songs or karaoke");
+                Necessity n3 = new Necessity("Dançar", "Dancing to music");
+                Necessity n4 = new Necessity("Tecnologia", "Learning and using technology");
+                Necessity n5 = new Necessity("Leitura", "Reading books or articles");
+                Necessity n6 = new Necessity("Esportes", "Playing or watching sports");
+                Necessity n7 = new Necessity("Música", "Listening to or playing music");
+                Necessity n8 = new Necessity("Arte", "Engaging in artistic activities");
+                Necessity n9 = new Necessity("Meal preparation", "Preparing meals together");
+                Necessity n10 = new Necessity("Conversation", "Having conversations and socializing");
+                Necessity n11 = new Necessity("Grocery shopping", "Shopping for groceries");
+                Necessity n12 = new Necessity("House cleaning", "Cleaning the house");
+                Necessity n13 = new Necessity("Transportation", "Providing transportation");
+                Necessity n14 = new Necessity("Medication pickup", "Picking up medications from the pharmacy");
 
                 necessityRepository.saveAll(Arrays.asList(n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11, n12, n13, n14));
 

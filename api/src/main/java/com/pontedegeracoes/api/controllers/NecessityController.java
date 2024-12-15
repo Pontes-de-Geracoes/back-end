@@ -1,8 +1,10 @@
 package com.pontedegeracoes.api.controllers;
 
 import com.pontedegeracoes.api.entitys.Necessity;
+import com.pontedegeracoes.api.entitys.User;
 import com.pontedegeracoes.api.repositories.NecessityRepository;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,13 @@ public class NecessityController {
     return necessity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
+  @GetMapping("/search")
+  public ResponseEntity<List<Necessity>> getNecessityByDescription(@RequestParam String description) {
+
+    List<Necessity> necessities = necessityRepository.findAllByDescriptionContainingIgnoreCase(description);
+    return ResponseEntity.ok(necessities);
+  }
+
   @PostMapping
   public ResponseEntity<Necessity> createNecessity(@Valid @RequestBody Necessity necessity) {
 
@@ -52,19 +61,38 @@ public class NecessityController {
     return necessity.map(existingNecessity -> {
 
       existingNecessity.setName(necessityDetails.getName());
+      existingNecessity.setDescription(necessityDetails.getDescription());
       Necessity updatedNecessity = necessityRepository.save(existingNecessity);
       return ResponseEntity.ok(updatedNecessity);
     }).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @DeleteMapping("/{id}")
+  @Transactional
+  /*
+   * ? Probably exit some other better method to resolve this question about
+   * delete some register in a many to many relationship
+   */
   public ResponseEntity<Void> deleteNecessity(@PathVariable Long id) {
-    Optional<Necessity> necessity = necessityRepository.findById(id);
-    if (necessity.isPresent()) {
-      necessityRepository.delete(necessity.get());
+    Optional<Necessity> necessityOpt = necessityRepository.findById(id);
+
+    if (necessityOpt.isPresent()) {
+      Necessity necessity = necessityOpt.get();
+
+      // Remove the necessity from all users that have it
+      for (User user : necessity.getUsers()) {
+        user.removeNecessity(necessity);
+      }
+
+      // Clear the users set from the necessity
+      necessity.getUsers().clear();
+
+      // Now we can safely delete the necessity
+      necessityRepository.delete(necessity);
+
       return ResponseEntity.noContent().build();
-    } else {
-      return ResponseEntity.notFound().build();
     }
+
+    return ResponseEntity.notFound().build();
   }
 }
