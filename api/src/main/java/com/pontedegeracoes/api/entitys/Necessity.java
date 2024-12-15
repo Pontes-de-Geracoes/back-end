@@ -19,28 +19,26 @@ import jakarta.validation.constraints.Size;
 public class Necessity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long necessityId;
+    private long id;
 
-    @NotBlank
-    @Size(max = 60)
+    @NotBlank(message = "O nome é obrigatório")
+    @Size(max = 30, message = "O nome deve ter no máximo 30 caracteres")
     private String name;
-
-    @Size(max = 300)
-    private String description;
 
     @ManyToMany(mappedBy = "necessities")
     @JsonIgnore
     private Set<User> users = new HashSet<>();
-    
-    protected Necessity(){}
 
-    public Necessity(String name, String description){
-        this.name = name;
-        this.description = description;
+    protected Necessity() {
     }
 
-    public long getNecessityId() {
-        return this.necessityId;
+    public Necessity(String name) {
+        this.name = name;
+        this.users = new HashSet<>();
+    }
+
+    public long getId() {
+        return this.id;
     }
 
     public String getName() {
@@ -51,29 +49,21 @@ public class Necessity {
         this.name = name;
     }
 
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
+    // Add getter and setter for users
     public Set<User> getUsers() {
-        return this.users;
+        return users;
     }
 
     public void setUsers(Set<User> users) {
         this.users = users;
     }
 
-
     @Override
     public String toString() {
         return "{\n" +
-            "name='" + getName() + "'\n" +
-            "description='" + getDescription() + "'\n" +
-            "}";
+                "name='" + getName() + "'\n" +
+                ", users='" + getUsers() + "'\n" +
+                "}";
     }
 
 }
