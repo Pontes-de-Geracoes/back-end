@@ -56,8 +56,6 @@ public class User {
     private String email;
 
     @NotBlank(message = "A Senha é obrigatória")
-    @Size(max = 30, message = "A Senha deve ter no máximo 30 caracteres")
-    @Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres", max = 30)
     private String password;
 
     @NotBlank(message = "A Preferência de reunião é obrigatória")
