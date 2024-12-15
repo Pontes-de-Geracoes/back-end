@@ -3,6 +3,10 @@ package com.pontedegeracoes.api.entitys;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -44,6 +48,8 @@ public class User {
     @NotBlank(message = "O Tipo é obrigatório")
     @Size(max = 60)
     private String type;
+
+    private String photo;
 
     @NotBlank(message = "O Email é obrigatório")
     @Email(message = "Email inválido")
@@ -95,7 +101,6 @@ public class User {
         this.receivedMeetings = receivedMeetings;
     }
 
-    // construtores
     public User() {
     }
 
@@ -109,9 +114,10 @@ public class User {
         this.meetingPreference = meetingPreference;
         this.town = town;
         this.state = state;
+
+        this.photo = "https://pic.onlinewebfonts.com/thumbnails/icons_23485.svg";
     }
 
-    // getters e setters
     public long getId() {
         return this.id;
     }
@@ -138,6 +144,14 @@ public class User {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getEmail() {

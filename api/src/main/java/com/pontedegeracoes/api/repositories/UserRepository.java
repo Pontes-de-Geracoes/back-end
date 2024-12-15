@@ -9,7 +9,9 @@ import com.pontedegeracoes.api.entitys.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByName(String name);
+    Optional<User> findByEmailIgnoreCase(String name);
+
+    List<User> findAllByNameContainingIgnoreCase(String name);
 
     List<User> findAllByType(String type);
 }
