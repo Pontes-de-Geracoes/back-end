@@ -1,0 +1,37 @@
+@startuml
+    entity User {
+        * userId
+        --
+        * name
+        * age
+        * userType
+        * email
+        * password
+        * meetingPreference
+        city
+        stateInitials
+        * necessities
+    }
+
+    entity Necessity{
+        * necessityId 
+        --
+        description
+        * name
+    }
+
+    entity Meeting {
+        * meetingId
+        --
+        * date
+        city
+        stateInitials
+        * inPerson
+        description
+        * participants
+    }
+
+    Meeting --> User
+    Necessity --> User
+
+@enduml
