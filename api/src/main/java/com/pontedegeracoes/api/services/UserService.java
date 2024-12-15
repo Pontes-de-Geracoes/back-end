@@ -1,7 +1,16 @@
 package com.pontedegeracoes.api.services;
 
+import com.pontedegeracoes.api.dtos.user.UserCreateDTO;
+import com.pontedegeracoes.api.dtos.user.UserDTO;
+import com.pontedegeracoes.api.dtos.user.UserUpdateDTO;
+import com.pontedegeracoes.api.entitys.Necessity;
 import com.pontedegeracoes.api.entitys.User;
+import com.pontedegeracoes.api.mappers.UserMapper;
+import com.pontedegeracoes.api.repositories.NecessityRepository;
 import com.pontedegeracoes.api.repositories.UserRepository;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,21 +23,36 @@ public class UserService {
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
+  private final NecessityRepository necessityRepository;
+  private final UserMapper userMapper;
 
   public UserService(UserRepository userRepository,
       PasswordEncoder passwordEncoder,
-      JwtService jwtService) {
+      JwtService jwtService,
+      NecessityRepository necessityRepository,
+      UserMapper userMapper) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
     this.jwtService = jwtService;
+    this.necessityRepository = necessityRepository;
+    this.userMapper = userMapper;
   }
 
   @Transactional
-  public User registerUser(User user) {
+  public User registerUser(UserCreateDTO userDTO) {
     // Check if user already exists
-    if (userRepository.findByEmailIgnoreCase(user.getEmail()).isPresent()) {
+    if (userRepository.findByEmailIgnoreCase(userDTO.email()).isPresent()) {
       throw new RuntimeException("Email already registered");
     }
+
+    Set<Necessity> necessities = userDTO.necessities().stream()
+        .map(id -> necessityRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Necessity not found: " + id)))
+        .collect(Collectors.toSet());
+
+    User user = userMapper.toEntity(userDTO);
+    user.setNecessities(necessities);
+    user.setPassword(passwordEncoder.encode(userDTO.password()));
 
     // Encode password
     user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -42,10 +66,9 @@ public class UserService {
   }
 
   @Transactional
-  public User updateUser(Long id, User userDetails) {
+  public User updateUser(Long id, UserUpdateDTO userDTO) {
     User currentUser = getCurrentUser();
 
-    // Only allow users to update their own profile
     if (currentUser.getId() != id) {
       throw new RuntimeException("You can only update your own profile");
     }
@@ -53,36 +76,31 @@ public class UserService {
     User user = userRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("User not found"));
 
-    // Update fields if provided
-    if (userDetails.getName() != null) {
-      user.setName(userDetails.getName());
-    }
-    if (userDetails.getAge() != 0) {
-      user.setAge(userDetails.getAge());
-    }
-    if (userDetails.getType() != null) {
-      user.setType(userDetails.getType());
-    }
-    if (userDetails.getPhoto() != null) {
-      user.setPhoto(userDetails.getPhoto());
-    }
-    if (userDetails.getEmail() != null) {
-      user.setEmail(userDetails.getEmail());
-    }
-    if (userDetails.getPassword() != null) {
-      user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
-    }
-    if (userDetails.getMeetingPreference() != null) {
-      user.setMeetingPreference(userDetails.getMeetingPreference());
-    }
-    if (userDetails.getTown() != null) {
-      user.setTown(userDetails.getTown());
-    }
-    if (userDetails.getState() != null) {
-      user.setState(userDetails.getState());
+    if (userDTO.necessities() != null && !userDTO.necessities().isEmpty()) {
+      Set<Necessity> necessities = userDTO.necessities().stream()
+          .map(necessityId -> necessityRepository.findById(necessityId)
+              .orElseThrow(() -> new RuntimeException("Necessity not found: " + necessityId)))
+          .collect(Collectors.toSet());
+      user.setNecessities(necessities);
     }
 
+    userMapper.updateEntityFromDTO(userDTO, user);
+
     return userRepository.save(user);
+  }
+
+  @Transactional
+  public void deleteUser(Long id) {
+    User currentUser = getCurrentUser();
+
+    if (currentUser.getId() != id) {
+      throw new RuntimeException("You can only delete your own account");
+    }
+
+    User user = userRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("User not found"));
+
+    userRepository.delete(user);
   }
 
   public User getCurrentUser() {
