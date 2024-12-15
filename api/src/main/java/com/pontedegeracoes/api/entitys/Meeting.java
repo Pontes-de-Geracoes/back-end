@@ -71,6 +71,10 @@ public class Meeting {
 
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

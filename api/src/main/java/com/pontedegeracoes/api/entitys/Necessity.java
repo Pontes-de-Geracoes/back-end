@@ -25,6 +25,10 @@ public class Necessity {
     @Size(max = 30, message = "O nome deve ter no máximo 30 caracteres")
     private String name;
 
+    @NotBlank(message = "A descrição é obrigatória")
+    @Size(max = 256, message = "A descrição deve ter no máximo 100 caracteres")
+    private String description;
+
     @ManyToMany(mappedBy = "necessities")
     @JsonIgnore
     private Set<User> users = new HashSet<>();
@@ -32,8 +36,9 @@ public class Necessity {
     protected Necessity() {
     }
 
-    public Necessity(String name) {
+    public Necessity(String name, String description) {
         this.name = name;
+        this.description = description;
         this.users = new HashSet<>();
     }
 
@@ -49,7 +54,14 @@ public class Necessity {
         this.name = name;
     }
 
-    // Add getter and setter for users
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Set<User> getUsers() {
         return users;
     }
@@ -62,6 +74,7 @@ public class Necessity {
     public String toString() {
         return "{\n" +
                 "name='" + getName() + "'\n" +
+                ", description='" + getDescription() + "'\n" +
                 ", users='" + getUsers() + "'\n" +
                 "}";
     }
