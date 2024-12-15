@@ -3,6 +3,8 @@ package com.pontedegeracoes.api.controllers;
 import com.pontedegeracoes.api.entitys.Necessity;
 import com.pontedegeracoes.api.repositories.NecessityRepository;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,37 +32,29 @@ public class NecessityController {
     return necessity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
-  /* Resolve this later */
-  /*
-   * @GetMapping("/name/{name}")
-   * public ResponseEntity<List<Necessity>> getNecessitiesByName(@PathVariable
-   * String name) {
-   * List<Necessity> necessities =
-   * necessityRepository.findAllByNameStartingWith(name);
-   * if (necessities.isEmpty()) {
-   * return ResponseEntity.notFound().build();
-   * } else {
-   * return ResponseEntity.ok(necessities);
-   * }
-   * }
-   */
-
   @PostMapping
-  public ResponseEntity<Necessity> createNecessity(@RequestBody Necessity necessity) {
+  public ResponseEntity<Necessity> createNecessity(@Valid @RequestBody Necessity necessity) {
+
+    Optional<Necessity> necessityExists = necessityRepository.findByNameIgnoreCase(necessity.getName());
+    if (necessityExists.isPresent()) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    }
+
     Necessity savedNecessity = necessityRepository.save(necessity);
     return ResponseEntity.status(HttpStatus.CREATED).body(savedNecessity);
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Necessity> updateNecessity(@PathVariable Long id, @RequestBody Necessity necessityDetails) {
+  public ResponseEntity<Necessity> updateNecessity(@PathVariable Long id,
+      @Valid @RequestBody Necessity necessityDetails) {
     Optional<Necessity> necessity = necessityRepository.findById(id);
-    if (necessity.isPresent()) {
-      Necessity updatedNecessity = necessity.get();
-      updatedNecessity.setName(necessityDetails.getName());
-      return ResponseEntity.ok(necessityRepository.save(updatedNecessity));
-    } else {
-      return ResponseEntity.notFound().build();
-    }
+
+    return necessity.map(existingNecessity -> {
+
+      existingNecessity.setName(necessityDetails.getName());
+      Necessity updatedNecessity = necessityRepository.save(existingNecessity);
+      return ResponseEntity.ok(updatedNecessity);
+    }).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @DeleteMapping("/{id}")
