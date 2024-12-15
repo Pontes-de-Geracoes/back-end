@@ -4,7 +4,6 @@ import com.pontedegeracoes.api.entitys.Necessity;
 import com.pontedegeracoes.api.entitys.User;
 import com.pontedegeracoes.api.repositories.NecessityRepository;
 
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +67,6 @@ public class NecessityController {
   }
 
   @DeleteMapping("/{id}")
-  @Transactional
   /*
    * ? Probably exit some other better method to resolve this question about
    * delete some register in a many to many relationship
