@@ -56,11 +56,7 @@ public class AuthController {
     return ResponseEntity.ok(new AuthResponse(token, userMapper.toDTO(user)));
   }
 
-  @Operation(summary = "Register new user", description = "Create new user account", security = {} // Empty security
-                                                                                                   // indicates no
-                                                                                                   // security
-                                                                                                   // requirement
-  )
+  @Operation(summary = "Register new user", description = "Create new user account", security = {})
   @PostMapping("/register")
   public ResponseEntity<AuthResponse> register(@Valid @RequestBody UserCreateDTO user) {
     User registeredUser = userService.registerUser(user);
