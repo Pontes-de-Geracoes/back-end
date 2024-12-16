@@ -20,12 +20,8 @@ WORKDIR /app
 # Copy JAR from build stage
 COPY --from=build /build/target/*.jar app.jar
 
-# Environment variables
-ENV SPRING_PROFILES_ACTIVE=prod
-ENV PORT=8080
-
 # Expose port
-EXPOSE ${PORT}
+EXPOSE 8080
 
 # Run application
 CMD ["sh", "-c", "java -jar app.jar --server.port=${PORT} --server.address=0.0.0.0"]
