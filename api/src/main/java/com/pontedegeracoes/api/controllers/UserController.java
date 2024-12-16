@@ -5,6 +5,8 @@ import com.pontedegeracoes.api.entitys.User;
 import com.pontedegeracoes.api.mappers.UserMapper;
 import com.pontedegeracoes.api.repositories.UserRepository;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
+@Tag(name = "Users")
 public class UserController {
     @Autowired
     private UserRepository userRepository;

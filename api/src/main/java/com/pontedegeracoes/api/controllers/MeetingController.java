@@ -5,6 +5,7 @@ import com.pontedegeracoes.api.entitys.User;
 import com.pontedegeracoes.api.repositories.MeetingRepository;
 import com.pontedegeracoes.api.repositories.UserRepository;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/meetings")
+@Tag(name = "Meetings")
 public class MeetingController {
 
   @Autowired
