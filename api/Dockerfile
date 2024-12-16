@@ -2,10 +2,13 @@ FROM openjdk:17.0.1-jdk-oracle as build
 
 WORKDIR /workspace/app
 
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
+# Copy Maven files first for better layer caching
+COPY api/pom.xml .
+COPY api/.mvn/ .mvn/
+COPY api/mvnw .
+
+# Copy source code
+COPY api/src/ src/
 
 RUN chmod -R 777 ./mvnw
 
