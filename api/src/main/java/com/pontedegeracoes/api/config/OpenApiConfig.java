@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@OpenAPIDefinition(info = @Info(title = "Ponte de Gerações API", version = "1.0", description = "API for connecting elderly people with volunteers", contact = @Contact(name = "Development Team", email = "contact@pontedegeracoes.com")), security = @SecurityRequirement(name = "bearerAuth"))
+@OpenAPIDefinition(info = @Info(title = "Ponte de Gerações API", version = "0.9", description = "API for connecting elderly people with volunteers", contact = @Contact(name = "Development Team", email = "contact@pontedegeracoes.com")), security = @SecurityRequirement(name = "bearerAuth"))
 @SecurityScheme(name = "bearerAuth", description = "JWT auth description", scheme = "bearer", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", in = SecuritySchemeIn.HEADER)
 public class OpenApiConfig {
 

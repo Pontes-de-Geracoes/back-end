@@ -7,14 +7,23 @@ import com.pontedegeracoes.api.entitys.User;
 import com.pontedegeracoes.api.mappers.UserMapper;
 import com.pontedegeracoes.api.services.JwtService;
 import com.pontedegeracoes.api.services.UserService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Authentication")
 public class AuthController {
   private final AuthenticationManager authenticationManager;
   private final JwtService jwtService;
@@ -31,6 +40,11 @@ public class AuthController {
     this.userMapper = userMapper;
   }
 
+  @Operation(summary = "Login user", description = "Authenticate user and return JWT token", security = {})
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Successfully authenticated"),
+      @ApiResponse(responseCode = "401", description = "Invalid credentials")
+  })
   @PostMapping("/login")
   public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
     authenticationManager.authenticate(
@@ -42,6 +56,11 @@ public class AuthController {
     return ResponseEntity.ok(new AuthResponse(token, userMapper.toDTO(user)));
   }
 
+  @Operation(summary = "Register new user", description = "Create new user account", security = {} // Empty security
+                                                                                                   // indicates no
+                                                                                                   // security
+                                                                                                   // requirement
+  )
   @PostMapping("/register")
   public ResponseEntity<AuthResponse> register(@Valid @RequestBody UserCreateDTO user) {
     User registeredUser = userService.registerUser(user);
@@ -65,7 +84,11 @@ public class AuthController {
   }
 }
 
-record LoginRequest(String email, String password) {
+@Schema(description = "Login request payload")
+record LoginRequest(
+    @Schema(example = "maria@email.com") String email,
+
+    @Schema(example = "password123") String password) {
 }
 
 record AuthResponse(String token, UserDTO user) {

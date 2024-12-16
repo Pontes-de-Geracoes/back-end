@@ -35,12 +35,8 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             .requestMatchers(
                 "/auth/**",
-                "/v3/api-docs/**",
                 "/docs/**",
-                "/swagger-ui/**",
-                "/swagger-ui.html",
-                "/swagger-resources/**",
-                "/webjars/**")
+                "/swagger-ui/**")
             .permitAll()
             .anyRequest().authenticated())
         .userDetailsService(customUserDetailsService)
