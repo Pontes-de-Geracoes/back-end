@@ -3,10 +3,10 @@ FROM maven:3.8.4-openjdk-17-slim AS build
 WORKDIR /build
 
 # Copy pom.xml first for better caching
-COPY api/pom.xml .
-COPY api/.mvn/ .mvn/
-COPY api/mvnw .
-COPY api/src/ src/
+COPY pom.xml .
+COPY .mvn/ .mvn/
+COPY mvnw .
+COPY src/ src/
 
 # Build application
 RUN chmod +x mvnw && \
