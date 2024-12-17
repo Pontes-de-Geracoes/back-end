@@ -26,7 +26,6 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Users")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
 
     // o id do usuario sera gerado automaticamente
