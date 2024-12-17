@@ -9,11 +9,13 @@ import com.pontedegeracoes.api.services.JwtService;
 import com.pontedegeracoes.api.services.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -71,6 +73,23 @@ public class AuthController {
       @Valid @RequestBody UserUpdateDTO userDTO) {
     User updatedUser = userService.updateUser(id, userDTO);
     return ResponseEntity.ok(userMapper.toDTO(updatedUser));
+  }
+
+  @Operation(summary = "Get user profile", description = "Get user profile from JWT token")
+  @GetMapping("/profile")
+  public ResponseEntity<UserDTO> getProfile(
+      @Parameter(hidden = true) @RequestHeader("Authorization") String authHeader) {
+    try {
+      if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+      }
+
+      String token = authHeader.substring(7);
+      User user = userService.getUserFromToken(token);
+      return ResponseEntity.ok(userMapper.toDTO(user));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
   }
 
   @DeleteMapping("/delete/{id}")
