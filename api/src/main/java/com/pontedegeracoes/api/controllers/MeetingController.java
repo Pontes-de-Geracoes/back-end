@@ -1,5 +1,7 @@
 package com.pontedegeracoes.api.controllers;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.pontedegeracoes.api.entitys.Meeting;
 import com.pontedegeracoes.api.entitys.User;
 import com.pontedegeracoes.api.repositories.MeetingRepository;
@@ -18,6 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/meetings")
 @Tag(name = "Meetings")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class MeetingController {
 
   @Autowired
@@ -38,6 +41,16 @@ public class MeetingController {
     return meeting.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
+  @GetMapping("/user/{id}")
+  public ResponseEntity<List<Meeting>> getMeetingsByUserId(@PathVariable Long id) {
+    if (!userRepository.existsById(id)) {
+      return ResponseEntity.notFound().build();
+    }
+
+    List<Meeting> meetings = meetingRepository.findAllByUserId(id);
+    return ResponseEntity.ok(meetings);
+  }
+
   @PostMapping
   public ResponseEntity<Meeting> createMeeting(@Valid @RequestBody Meeting meeting) {
 
@@ -49,7 +62,10 @@ public class MeetingController {
       return ResponseEntity.notFound().build();
     }
 
-    Meeting savedMeeting = meetingRepository.save(meeting);
+    Meeting newMeeting = new Meeting(meeting.getName(), meeting.getDescription(), meeting.getType(), meeting.getDate(),
+        meeting.getMessage(), meeting.getStatus(), sender.get(), recipient.get());
+
+    Meeting savedMeeting = meetingRepository.save(newMeeting);
     return ResponseEntity.status(HttpStatus.CREATED).body(savedMeeting);
   }
 
@@ -62,6 +78,7 @@ public class MeetingController {
       updatedMeeting.setName(meetingDetails.getName());
       updatedMeeting.setDescription(meetingDetails.getDescription());
       updatedMeeting.setType(meetingDetails.getType());
+      updatedMeeting.setStatus(meetingDetails.getStatus());
       updatedMeeting.setMessage(meetingDetails.getMessage());
       updatedMeeting.setDate(meetingDetails.getDate());
 
