@@ -3,9 +3,7 @@ package com.pontedegeracoes.api.entitys;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -28,7 +26,6 @@ import jakarta.validation.constraints.Size;
 @Table(name = "Users")
 public class User {
 
-    // o id do usuario sera gerado automaticamente
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
