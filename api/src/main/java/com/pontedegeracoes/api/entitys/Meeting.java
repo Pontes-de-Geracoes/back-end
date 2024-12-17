@@ -3,6 +3,7 @@ package com.pontedegeracoes.api.entitys;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -44,14 +45,15 @@ public class Meeting {
     @Pattern(regexp = "pending|canceled|confirm", message = "O status deve ser 'pending', 'canceled', or 'confirm'")
     private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sender_id", nullable = false)
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIdentityReference(alwaysAsId = false)
+    @JsonIgnoreProperties({ "meetings", "sentMeetings", "receivedMeetings", "password" })
     private User sender;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recipient_id", nullable = false)
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnoreProperties({ "meetings", "sentMeetings", "receivedMeetings", "password" })
     private User recipient;
 
     protected Meeting() {

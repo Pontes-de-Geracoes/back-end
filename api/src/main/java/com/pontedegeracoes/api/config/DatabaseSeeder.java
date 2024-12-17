@@ -73,6 +73,7 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                         elderly1.setMeetingPreference("in person");
                         elderly1.setTown("São Paulo");
                         elderly1.setState("SP");
+                        elderly1.setPhoto((""));
 
                         User elderly2 = new User();
                         elderly2.setName("João Santos");
@@ -83,6 +84,7 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                         elderly2.setMeetingPreference("remote");
                         elderly2.setTown("Rio de Janeiro");
                         elderly2.setState("RJ");
+                        elderly2.setPhoto((""));
 
                         User volunteer1 = new User();
                         volunteer1.setName("Ana Pereira");
@@ -93,6 +95,7 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                         volunteer1.setMeetingPreference("hybrid");
                         volunteer1.setTown("Curitiba");
                         volunteer1.setState("PR");
+                        volunteer1.setPhoto("");
 
                         User volunteer2 = new User();
                         volunteer2.setName("Pedro Costa");
@@ -103,6 +106,7 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                         volunteer2.setMeetingPreference("in person");
                         volunteer2.setTown("Salvador");
                         volunteer2.setState("BA");
+                        volunteer2.setPhoto("");
 
                         // 3. Save users first
                         List<User> users = Arrays.asList(elderly1, elderly2, volunteer1, volunteer2);
