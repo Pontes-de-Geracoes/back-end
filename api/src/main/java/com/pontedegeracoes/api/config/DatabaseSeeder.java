@@ -111,6 +111,23 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
 
         private List<User> seedUsers() {
                 List<User> users = Arrays.asList(
+                                // Main users for testing
+                                createElderlyWithPhoto(
+                                                "Dona Maria",
+                                                72,
+                                                "dona.maria@email.com",
+                                                "in person",
+                                                "São Paulo",
+                                                "SP",
+                                                "https://ik.imagekit.io/caulicons/Ponte%20de%20gera%C3%A7%C3%B5es/profile_maria.png?updatedAt=1734559805413"),
+                                createVolunteerWithPhoto(
+                                                "Juliana",
+                                                25,
+                                                "juliana@email.com",
+                                                "in person",
+                                                "São Paulo",
+                                                "SP",
+                                                "https://ik.imagekit.io/caulicons/Ponte%20de%20gera%C3%A7%C3%B5es/profile_juliana.png?updatedAt=1734559805078"),
                                 // Elderly users (Idosos)
                                 createElderly("Maria Silva", 75, "maria@email.com", "in person", "São Paulo", "SP"),
                                 createElderly("João Santos", 80, "joao@email.com", "remote", "Rio de Janeiro", "RJ"),
@@ -201,9 +218,23 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
         }
 
         private void assignNecessitiesToUsers(List<User> users, List<Necessity> necessities) {
-                Random random = new Random();
-                for (User user : users) {
+                // Assign specific necessities to Dona Maria and Juliana
+                Set<Necessity> sharedNecessities = new HashSet<>(Arrays.asList(
+                                necessities.get(0), // Caminhar
+                                necessities.get(1), // Tecnologia Básica
+                                necessities.get(2), // Companhia para Café
+                                necessities.get(4), // Leitura
+                                necessities.get(7), // Música
+                                necessities.get(9) // Memória
+                ));
+
+                users.get(0).setNecessities(sharedNecessities); // Dona Maria
+                users.get(1).setNecessities(sharedNecessities); // Juliana
+
+                // Random necessities for other users
+                for (int i = 2; i < users.size(); i++) {
                         Set<Necessity> userNecessities = new HashSet<>();
+                        Random random = new Random();
                         userNecessities.add(necessities.get(random.nextInt(necessities.size())));
                         userNecessities.add(necessities.get(random.nextInt(necessities.size())));
                         userNecessities.add(necessities.get(random.nextInt(necessities.size())));
@@ -212,8 +243,11 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                         userNecessities.add(necessities.get(random.nextInt(necessities.size())));
                         userNecessities.add(necessities.get(random.nextInt(necessities.size())));
                         userNecessities.add(necessities.get(random.nextInt(necessities.size())));
-                        user.setNecessities(userNecessities);
+                        userNecessities.add(necessities.get(random.nextInt(necessities.size())));
+                        userNecessities.add(necessities.get(random.nextInt(necessities.size())));
+                        users.get(i).setNecessities(userNecessities);
                 }
+
                 userRepository.saveAll(users);
                 entityManager.flush();
         }
@@ -514,5 +548,19 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
 
         private Date daysFromNow(int days) {
                 return new Date(System.currentTimeMillis() + (days * 86400000L));
+        }
+
+        private User createElderlyWithPhoto(String name, int age, String email,
+                        String meetingPreference, String town, String state, String photo) {
+                User user = createElderly(name, age, email, meetingPreference, town, state);
+                user.setPhoto(photo);
+                return user;
+        }
+
+        private User createVolunteerWithPhoto(String name, int age, String email,
+                        String meetingPreference, String town, String state, String photo) {
+                User user = createVolunteer(name, age, email, meetingPreference, town, state);
+                user.setPhoto(photo);
+                return user;
         }
 }
