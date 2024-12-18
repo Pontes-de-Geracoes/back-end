@@ -104,8 +104,7 @@ public class User {
         this.meetingPreference = meetingPreference;
         this.town = town;
         this.state = state;
-
-        this.photo = "https://pic.onlinewebfonts.com/thumbnails/icons_23485.svg";
+        this.photo = "";
     }
 
     public long getId() {
