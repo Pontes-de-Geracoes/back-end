@@ -95,7 +95,8 @@ public class User {
     }
 
     public User(String name, int age, String type, String email, String password,
-            String meetingPreference, String town, String state) {
+            String meetingPreference, String town, String state, Set<Necessity> necessities,
+            Set<Meeting> sentMeetings, Set<Meeting> receivedMeetings) {
         this.name = name;
         this.age = age;
         this.type = type;
@@ -104,6 +105,9 @@ public class User {
         this.meetingPreference = meetingPreference;
         this.town = town;
         this.state = state;
+        this.necessities = necessities;
+        this.sentMeetings = sentMeetings;
+        this.receivedMeetings = receivedMeetings;
 
         this.photo = "https://pic.onlinewebfonts.com/thumbnails/icons_23485.svg";
     }
