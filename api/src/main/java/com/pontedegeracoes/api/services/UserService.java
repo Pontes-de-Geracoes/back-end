@@ -53,14 +53,6 @@ public class UserService {
     user.setNecessities(necessities);
     user.setPassword(passwordEncoder.encode(userDTO.password()));
 
-    // Encode password
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-    // Set default photo if not provided
-    if (user.getPhoto() == null || user.getPhoto().isEmpty()) {
-      user.setPhoto("https://pic.onlinewebfonts.com/thumbnails/icons_23485.svg");
-    }
-
     return userRepository.save(user);
   }
 
