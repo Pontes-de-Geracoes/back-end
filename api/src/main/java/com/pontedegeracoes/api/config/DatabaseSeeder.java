@@ -206,6 +206,12 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                         Set<Necessity> userNecessities = new HashSet<>();
                         userNecessities.add(necessities.get(random.nextInt(necessities.size())));
                         userNecessities.add(necessities.get(random.nextInt(necessities.size())));
+                        userNecessities.add(necessities.get(random.nextInt(necessities.size())));
+                        userNecessities.add(necessities.get(random.nextInt(necessities.size())));
+                        userNecessities.add(necessities.get(random.nextInt(necessities.size())));
+                        userNecessities.add(necessities.get(random.nextInt(necessities.size())));
+                        userNecessities.add(necessities.get(random.nextInt(necessities.size())));
+                        userNecessities.add(necessities.get(random.nextInt(necessities.size())));
                         user.setNecessities(userNecessities);
                 }
                 userRepository.saveAll(users);
