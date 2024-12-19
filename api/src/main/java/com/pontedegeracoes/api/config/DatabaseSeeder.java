@@ -263,7 +263,7 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                                                 "Vamos aprender a fazer videochamadas com a família",
                                                 "pending",
                                                 users.get(15), // Lucas (voluntário)
-                                                users.get(0) // Maria (idosa)
+                                                users.get(2) // Maria (idosa)
                                 ),
                                 createMeeting(
                                                 "Curso de Smartphone",
@@ -427,7 +427,7 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                                                 "Momento de recordar e compartilhar",
                                                 "confirm",
                                                 users.get(15), // Lucas
-                                                users.get(0) // Maria
+                                                users.get(2) // Maria
                                 ),
 
                                 // Atividades Educacionais
