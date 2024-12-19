@@ -273,7 +273,7 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                                                 "Ajuda com configurações e apps básicos",
                                                 "confirm",
                                                 users.get(16), // Julia
-                                                users.get(1) // João
+                                                users.get(3) // João
                                 ),
 
                                 // Atividades Físicas
@@ -439,7 +439,7 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                                                 "Aprendendo a usar a internet com segurança",
                                                 "pending",
                                                 users.get(16), // Julia
-                                                users.get(1) // João
+                                                users.get(3) // João
                                 ),
                                 createMeeting(
                                                 "Email e Comunicação",
@@ -525,7 +525,7 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                                                 "Vamos fazer uma caminhada saudável",
                                                 "confirm",
                                                 users.get(3), // Pedro
-                                                users.get(1) // João
+                                                users.get(3) // João
                                 ),
                                 createMeeting(
                                                 "Aula de Zoom",
@@ -535,7 +535,7 @@ public class DatabaseSeeder implements ApplicationListener<ApplicationReadyEvent
                                                 "Vou te ensinar a usar o Zoom",
                                                 "pending",
                                                 users.get(2), // Ana
-                                                users.get(1) // João
+                                                users.get(3) // João
                                 ));
                 meetingRepository.saveAll(meetings);
                 entityManager.flush();
