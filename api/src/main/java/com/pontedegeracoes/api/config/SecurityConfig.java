@@ -42,6 +42,7 @@ public class SecurityConfig {
                 "/users",
                 "/users/email/**",
                 "/necessities")
+
             .permitAll()
             .anyRequest().authenticated())
         .userDetailsService(customUserDetailsService)

@@ -64,7 +64,7 @@ public class AuthController {
     User registeredUser = userService.registerUser(user);
     String token = jwtService.generateToken(user.email());
 
-    return ResponseEntity.ok(new AuthResponse(token, userMapper.toDTO(registeredUser)));
+    return ResponseEntity.status(HttpStatus.CREATED).body(new AuthResponse(token, userMapper.toDTO(registeredUser)));
   }
 
   @PutMapping("/update/{id}")
