@@ -75,6 +75,14 @@ public class User {
     @JsonIgnore
     private Set<Meeting> receivedMeetings = new HashSet<>();
 
+    @OneToMany(mappedBy = "user1", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Chat> chatsAsUser1 = new HashSet<>();
+
+    @OneToMany(mappedBy = "user2", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Chat> chatsAsUser2 = new HashSet<>();
+
     public Set<Meeting> getSentMeetings() {
         return sentMeetings;
     }
@@ -89,6 +97,22 @@ public class User {
 
     public void setReceivedMeetings(Set<Meeting> receivedMeetings) {
         this.receivedMeetings = receivedMeetings;
+    }
+
+    public Set<Chat> getChatsAsUser1() {
+        return chatsAsUser1;
+    }
+
+    public void setChatsAsUser1(Set<Chat> chatsAsUser1) {
+        this.chatsAsUser1 = chatsAsUser1;
+    }
+
+    public Set<Chat> getChatsAsUser2() {
+        return chatsAsUser2;
+    }
+
+    public void setChatsAsUser2(Set<Chat> chatsAsUser2) {
+        this.chatsAsUser2 = chatsAsUser2;
     }
 
     public User() {
