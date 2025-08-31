@@ -26,7 +26,7 @@ public class Chat {
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user1_id", nullable = false)
-  @JsonIgnoreProperties({ "chats", "sentMeetings", "receivedMeetings", "password" })
+  @JsonIgnoreProperties({ "chatsAsUser1", "chatsAsUser2", "sentMeetings", "receivedMeetings", "password" })
   private User user1;
 
   @ManyToOne(fetch = FetchType.EAGER)

@@ -27,11 +27,15 @@ import com.pontedegeracoes.api.repositories.UserRepository;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/chats")
 @Tag(name = "Chats")
 public class ChatController {
+
+  private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
 
   @Autowired
   private ChatRepository chatRepository;
@@ -144,10 +148,9 @@ public class ChatController {
           String.valueOf(chat.getUser2().getId()),
           "/queue/messages",
           savedMessage);
-      System.out
-          .println("Message broadcasted to users: " + chat.getUser1().getId() + " and " + chat.getUser2().getId());
+      logger.info("Message broadcasted to users: {} and {}", chat.getUser1().getId(), chat.getUser2().getId());
     } catch (Exception e) {
-      System.err.println("Failed to broadcast message: " + e.getMessage());
+      logger.error("Failed to broadcast message: {}", e.getMessage(), e);
     }
 
     return ResponseEntity.status(HttpStatus.CREATED).body(savedMessage);

@@ -28,7 +28,7 @@ public class ChatMessage {
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "sender_id", nullable = false)
-  @JsonIgnoreProperties({ "chats", "sentMeetings", "receivedMeetings", "password" })
+  @JsonIgnoreProperties({ "chatsAsUser1", "chatsAsUser2", "sentMeetings", "receivedMeetings", "password" })
   private User sender;
 
   @NotBlank(message = "Message content is required")
